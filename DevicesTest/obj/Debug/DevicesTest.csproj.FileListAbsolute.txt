@@ -1,0 +1,8 @@
+C:\Users\jsnulla\Documents\Visual Studio 2013\Projects\DevicesTest\DevicesTest\bin\Debug\DevicesTest.exe.config
+C:\Users\jsnulla\Documents\Visual Studio 2013\Projects\DevicesTest\DevicesTest\bin\Debug\DevicesTest.exe
+C:\Users\jsnulla\Documents\Visual Studio 2013\Projects\DevicesTest\DevicesTest\bin\Debug\DevicesTest.pdb
+C:\Users\jsnulla\Documents\Visual Studio 2013\Projects\DevicesTest\DevicesTest\obj\Debug\DevicesTest.Form1.resources
+C:\Users\jsnulla\Documents\Visual Studio 2013\Projects\DevicesTest\DevicesTest\obj\Debug\DevicesTest.Properties.Resources.resources
+C:\Users\jsnulla\Documents\Visual Studio 2013\Projects\DevicesTest\DevicesTest\obj\Debug\DevicesTest.csproj.GenerateResource.Cache
+C:\Users\jsnulla\Documents\Visual Studio 2013\Projects\DevicesTest\DevicesTest\obj\Debug\DevicesTest.exe
+C:\Users\jsnulla\Documents\Visual Studio 2013\Projects\DevicesTest\DevicesTest\obj\Debug\DevicesTest.pdb
