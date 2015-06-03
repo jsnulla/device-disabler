@@ -24,6 +24,14 @@ namespace DevicesTest
         [return: MarshalAs(UnmanagedType.Bool)]
         public static extern bool SetupDiEnumDeviceInfo(SafeDeviceInfoSetHandle deviceInfoSet, int memberIndex, ref DeviceInfoData deviceInfoData);
 
+        [DllImport("setupapi.dll", SetLastError = true)]
+        public static extern bool SetupDiGetDeviceRegistryProperty(
+            //IntPtr lpInfoSet, DeviceInfoData did,
+            SafeDeviceInfoSetHandle lpInfoSet, DeviceInfoData did, 
+            UInt32 Property, UInt32 PropertyRegDataType, 
+            StringBuilder PropertyBuffer, UInt32 PropertyBufferSize, IntPtr RequiredSize
+        );
+
         [DllImport(setupapi, CallingConvention = CallingConvention.Winapi, CharSet = CharSet.Unicode, SetLastError = true)]
         public static extern SafeDeviceInfoSetHandle SetupDiGetClassDevs([In()]
             ref Guid classGuid, [MarshalAs(UnmanagedType.LPWStr)]

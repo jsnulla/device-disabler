@@ -16,6 +16,7 @@ namespace DevicesTest
     {
         Guid kinectCameraGuiId          = new Guid("{3A0339CD-B5F0-421C-8661-F243EEF1528C}");
         string kinectCameraInstanceId   = @"USB\VID_045E&PID_02BF\0000000000000000";
+        string deviceName               = "Kinect for Windows Camera";
 
         public Form1()
         {
@@ -29,12 +30,12 @@ namespace DevicesTest
 
         private void button1_Click(object sender, EventArgs e)
         {
-            DeviceHelper.SetDeviceEnabled(kinectCameraGuiId, kinectCameraInstanceId, true);
+            DeviceHelper.SetDeviceEnabled(kinectCameraGuiId, deviceName, true);
         }
 
         private void button2_Click(object sender, EventArgs e)
         {
-            DeviceHelper.SetDeviceEnabled(kinectCameraGuiId, kinectCameraInstanceId, false);
+            DeviceHelper.SetDeviceEnabled(kinectCameraGuiId, deviceName, false);
         }
     }
 }

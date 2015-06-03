@@ -6,3 +6,4 @@ C:\Users\jsnulla\Documents\Visual Studio 2013\Projects\DevicesTest\DevicesTest\o
 C:\Users\jsnulla\Documents\Visual Studio 2013\Projects\DevicesTest\DevicesTest\obj\Debug\DevicesTest.csproj.GenerateResource.Cache
 C:\Users\jsnulla\Documents\Visual Studio 2013\Projects\DevicesTest\DevicesTest\obj\Debug\DevicesTest.exe
 C:\Users\jsnulla\Documents\Visual Studio 2013\Projects\DevicesTest\DevicesTest\obj\Debug\DevicesTest.pdb
+C:\Users\jsnulla\Documents\Visual Studio 2013\Projects\DevicesTest\DevicesTest\obj\Debug\DevicesTest.csprojResolveAssemblyReference.cache

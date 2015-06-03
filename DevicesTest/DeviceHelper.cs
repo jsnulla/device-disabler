@@ -10,25 +10,40 @@ namespace DevicesTest
 {
     public sealed class DeviceHelper
     {
+        static List<int> indexesToDisable;
+
         private DeviceHelper()
         {
             // Non
         }
 
-        public static void SetDeviceEnabled(Guid classGuid, string instanceId, bool enable)
+        //public static void SetDeviceEnabled(Guid classGuid, string instanceId, bool enable)
+        public static void SetDeviceEnabled(Guid classGuid, string deviceNameToFind, bool enable)
         {
             SafeDeviceInfoSetHandle diSetHandle = null;
+            Guid myGUID = System.Guid.Empty;
             try
             {
                 // Get the handle to a device information set for all devices matching classGuid that are present on the 
                 // system.
-                diSetHandle = Win32.SetupDiGetClassDevs(ref classGuid, null, IntPtr.Zero, Win32.SetupDiGetClassDevsFlags.Present);
+                //diSetHandle = Win32.SetupDiGetClassDevs(ref classGuid, null, IntPtr.Zero, Win32.SetupDiGetClassDevsFlags.Present);
+                diSetHandle = Win32.SetupDiGetClassDevs(ref myGUID, null, IntPtr.Zero, Win32.SetupDiGetClassDevsFlags.AllClasses | Win32.SetupDiGetClassDevsFlags.Present);
                 // Get the device information data for each matching device.
-                Win32.DeviceInfoData[] diData = GetDeviceInfoData(diSetHandle);
+                Win32.DeviceInfoData[] diData = GetDeviceInfoData(diSetHandle, deviceNameToFind.ToLower());
                 // Find the index of our instance. i.e. the touchpad mouse - I have 3 mice attached...
-                int index = GetIndexOfInstance(diSetHandle, diData, instanceId);
+                //int index = GetIndexOfInstance(diSetHandle, diData, instanceId);
                 // Disable...
-                EnableDevice(diSetHandle, diData[index], enable);
+                if (indexesToDisable.Count > 0)
+                {
+                    foreach (int index in indexesToDisable)
+                    {
+                        EnableDevice(diSetHandle, diData[index], enable);
+                    }
+                }
+                else
+                {
+                    throw new Exception("Device(s) cannot be found!");
+                }
             }
             finally
             {
@@ -43,20 +58,37 @@ namespace DevicesTest
             }
         }
 
-        private static Win32.DeviceInfoData[] GetDeviceInfoData(SafeDeviceInfoSetHandle handle)
+        //private static Win32.DeviceInfoData[] GetDeviceInfoData(SafeDeviceInfoSetHandle handle)
+        private static Win32.DeviceInfoData[] GetDeviceInfoData(SafeDeviceInfoSetHandle handle, string deviceNameToFind)
         {
             List<Win32.DeviceInfoData> data = new List<Win32.DeviceInfoData>();
+            indexesToDisable = new List<int>();
             Win32.DeviceInfoData did = new Win32.DeviceInfoData();
             int didSize = Marshal.SizeOf(did);
             did.Size = didSize;
-            int index = 0;
-            while (Win32.SetupDiEnumDeviceInfo(handle, index, ref did))
+            //int index = 0;
+            StringBuilder DeviceName = new StringBuilder("");
+            DeviceName.Capacity = 1000;
+            //while (Win32.SetupDiEnumDeviceInfo(handle, index, ref did))
+            //{
+            //    data.Add(did);
+            //    index += 1;
+            //    did = new Win32.DeviceInfoData();
+            //    did.Size = didSize;
+            //} 
+            for (int i = 0; Win32.SetupDiEnumDeviceInfo(handle, i, ref did); i++)
             {
+                Win32.SetupDiGetDeviceRegistryProperty(handle, did, (0x00000000), 0, DeviceName, 1000, IntPtr.Zero);
+                if (DeviceName.ToString().ToLower() == deviceNameToFind)
+                {
+                    indexesToDisable.Add(i);
+                    Console.WriteLine(i + ":" + DeviceName.ToString());
+                }
                 data.Add(did);
-                index += 1;
                 did = new Win32.DeviceInfoData();
                 did.Size = didSize;
             }
+            //data.Sort();
             return data.ToArray();
         }
 
